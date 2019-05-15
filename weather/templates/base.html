@@ -1,0 +1,80 @@
+
+<html>
+<head>    
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        {% block head %}
+            <title>Base</title>
+        {% endblock %}
+        </head>
+        <br/>
+        <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="/weather/login">Login</a>&nbsp;
+                <a class="nav-brand" href="/weather/register">Register</a>&nbsp;
+                <a class="nav-brand pull-right" href="/weather/logout">Logout</a>
+                
+        </nav>
+            </body>
+            </html>
+        
+            {% block body %}
+            <body>
+                    <section class="hero is-primary">
+                        <div class="hero-body">
+                            <div class="container">
+                                <h1 class="title">
+                                    Cape Town's weather.
+                                </h1>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="section">
+                        <div class="container">
+                            <div class="columns">
+                                <div class="column is-offset-4 is-4">
+                                    <form method="POST">
+                                        {% csrf_token %}
+                                        <div class="field has-addons">
+                                            <div class="control is-expanded">
+                                                {{ form.name }}
+                                            </div>
+                                            
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="section">
+                        <div class="container">
+                            <div class="columns">
+                                <div class="column is-offset-4 is-4">
+                                    {% for weather in weather_data %}
+                                    <div class="box">
+                                        <article class="media">
+                                            <div class="media-left">
+                                                <figure class="image is-50x50">
+                                                    <img src="http://openweathermap.org/img/w/{{ weather.icon }}.png" alt="Image">
+                                                </figure>
+                                            </div>
+                                            <div class="media-content">
+                                                <div class="content">
+                                                    <p>
+                                                        <span class="title">{{ weather.city }}</span>
+                                                        <br>
+                                                        <span class="subtitle">{{ weather.temperature }}° F</span>
+                                                        <br> {{ weather.description }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </article>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <footer class="footer">
+                    </footer>
+                </body>
+            {% endblock %}
